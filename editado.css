@@ -1,10 +1,21 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css);
 
-.btn-success,.btn-danger,.btn-primary,.btn-info {
+.btn-success, .btn-danger, .btn-primary, .btn-info {
     cursor: pointer;
     border-width: 5px;
     border-style: double;
     border-color: white;
 
+}
 
+.centrar {
+    position: absolute;
+    left: 35%;
+    top: 20%;
+    height: 5%;
+    width: 40%;
+}
+
+body {
+    background: beige;
 }

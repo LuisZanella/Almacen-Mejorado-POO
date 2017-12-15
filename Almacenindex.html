@@ -5,52 +5,56 @@
     <title>Almacén</title>
 
     <link rel="stylesheet" href="editado.css">
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="main.js" type="text/javascript"></script>
+
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui">
+
 </head>
-<body style="background: beige">
-<div class="container" style="position:absolute;left: 40%;top: 20%;height: 5%;width: 40%;">
+<body>
+<div class="centrar">
+    <div class="container">
 
-    <br/>
+        <br/>
 
-    <div>
-    <input class="btn btn-success col-sm-4" type="button" value="Agregar Producto" id="AgregarProducto">
-    <input class="btn btn-danger col-sm-4"  type="button" value="Eliminar Producto" id="EliminarProducto">
+        <div>
+            <input class="btn btn-success col-sm-4" type="button" value="Agregar Producto" id="AgregarProducto">
+            <input class="btn btn-danger col-sm-4" type="button" value="Eliminar Producto" id="EliminarProducto">
+        </div>
+
+        <br/><br/>
+
+        <div>
+            <input class="btn btn-primary col-sm-4" type="button" value="Ver Productos" id="VerProducto">
+            <input class="btn btn-primary col-sm-4" type="button" value="Buscar Producto" id="BuscarProducto">
+        </div>
+
+        <br/><br/>
+
+        <div>
+            <input class="btn btn-info col-sm-4" type="button" value="Compra" id="AgregarCantidadProducto">
+            <input class="btn btn-info col-sm-4" type="button" value="Venta" id="EliminarCantidadProducto">
+        </div>
+
+        <br/><br/>
+
+        <div>
+            <input class="col-sm-8" type="text" id="NombreProducto" placeholder="Nombre del Producto...">
+        </div>
+
+        <br/><br/>
+
+        <div>
+            <input class="col-sm-8" type="number" id="CantidadProducto" placeholder="Cantidad del Producto...">
+        </div>
+        <br/>
+
+        <div>
+            <span class="col-sm-8" id="exito"></span>
+        </div>
+
     </div>
-
-    <br/><br/>
-
-    <div>
-    <input class="btn btn-primary col-sm-4" type="button" value="Ver Productos" id="VerProducto">
-    <input class="btn btn-primary col-sm-4" type="button" value="Buscar Producto" id="BuscarProducto">
-    </div>
-
-    <br/><br/>
-
-    <div>
-    <input class="btn btn-info col-sm-4" type="button" value="Compra" id="AgregarCantidadProducto">
-    <input class="btn btn-info col-sm-4" type="button" value="Venta" id="EliminarCantidadProducto">
-    </div>
-
-   <br/><br/>
-
-    <div>
-    <input class="col-sm-8" type="text" id="NombreProducto" placeholder="Nombre del Producto..." >
-    </div>
-
-    <br/><br/>
-
-    <div>
-    <input class="col-sm-8" type="number" id="CantidadProducto" placeholder="Cantidad del Producto...">
-    </div>
-    <br/>
-
-    <div>
-    <span class="col-sm-8" id="exito"></span>
-    </div>
-
 </div>
-
 </body>
 </html>
