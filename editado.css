@@ -19,20 +19,20 @@
 body {
     background: beige;
 }
-.TFtable th{
+table th{
     background-color: dodgerblue;
     padding:7px; border:white 2px solid;
     color:black;
 }
-.TFtable td{
+table td{
     padding:7px; border:white 2px solid;
 }
 /* provide some minimal visual accomodation for IE8 and below */
-.TFtable tr{
+table tr{
     background: #b8d1f3;
 }
 /*  Define the background color for all the EVEN background rows  */
-.TFtable tr:nth-child(even){
+table tr:nth-child(even){
     background: #dae5f4;
 }
 /* The Modal (background) */
@@ -55,7 +55,7 @@ body {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 65%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */

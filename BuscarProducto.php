@@ -7,22 +7,21 @@ try {
     if ($consulta > 0) {
         $cantidadproducto = $consulta['Cantidad'];
         $nombre = $consulta['NombreProducto'];
-
+        echo "<table>" .
+            "<tr>" .
+            "<th>" . "Nombre del producto" . "</th>" .
+            "<th>" . "Cantidad" . "</th>" .
+            "</tr>";
         echo
-        "<table border='1'>
-            <tr>
-            <td>Nombre Producto</td>
-            <td>Cantidad del Producto</td>
-            </tr>
-            <tr>
+        "<tr>
                 <td>$nombre</td>
                 <td>$cantidadproducto</td>
-            </tr>
+          </tr>
         </table>";
 
 
     } else {
-        $respuesta = "$respuesta No existe el producto con el nombre: $nombreproducto ";
+        $respuesta = "$respuesta No existe el producto con el nombre: $nombreproducto";
     }
 
 

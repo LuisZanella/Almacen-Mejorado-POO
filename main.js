@@ -1,27 +1,39 @@
+
 $(document).ready(function () {
+        window.onclick = function(event) {
+            if (event.target == document.getElementsByClassName('modal')[0]) {
+                quitarspan();
+            }
+        }
+        $("#salir").click(
+            function () {
+                quitarspan()
+            }
+        )
+
         $("#AgregarProductoInicio").click(
             function () {
-                aparecermodal()
+                aparecermodal();
+                limpiarspanpaginaprincipal();
+                aparecerspanparaagregar();
 
-                window.onclick = function(event) {
-                    if (event.target == document.getElementsByClassName('modal')[0]) {
-                        quitarspan();
-                    }
-                }
-                $("#salir").click(
-                    function () {
-                        quitarspan()
-                    }
-                )
             }
 
         )
+            $("#BuscarProductoInicio").click(
+                function () {
+                    aparecermodal();
+                    limpiarspanpaginaprincipal();
+                    aparecerspanparabuscar();
+
+                }
+
+            )
+
 
 
         $("#AgregarProducto").click(
             function () {
-
-
 
                 var nombreproducto = $("#NombreProducto").val();
                 var cantidadproducto = $("#CantidadProducto").val();
@@ -31,50 +43,45 @@ $(document).ready(function () {
                     $.post("AgregarProducto.php",
                         {nombre: nombreproducto, cantidad: cantidadproducto},
                         function (informacion) {
-                            $("#spanagregar").html(informacion)
+                            alert(informacion)
                         });
                     borrartexto();
                     quitarspan();
 
                 }
                 else {
-                    $("#spanagregar").html(ejecutar);
+                    alert(ejecutar);
                 }
-                setTimeout(reloj, 5000)
             }
         )
+
         $("#AgregarCantidadProducto").click(
             function () {
-                var nombreproducto = $("#NombreProducto").val();
-                var cantidadproducto = $("#CantidadProducto").val();
-                var ejecutar = validar(nombreproducto, cantidadproducto);
-                if (ejecutar == true) {
-                    $.post("AgregarCantidadProducto.php",
-                        {nombre: nombreproducto, cantidad: cantidadproducto},
-                        function (informacion) {
-                            $("#exito").html(informacion)
-                        });
-                    borrartexto();
-                }
-                else {
-                    $("#exito").html(ejecutar);
-                }
             }
         )
+
         $("#BuscarProducto").click(
             function () {
+                aparecermodal();
+                limpiarspanpaginaprincipal();
                 var nombreproducto = $("#NombreProducto").val();
                 var ejecutar = validarnombre(nombreproducto);
                 if (ejecutar == true) {
                     $.post("BuscarProducto.php",
                         {nombre: nombreproducto},
                         function (informacion) {
-                            $("#exito").html(informacion)
+                            if (informacion==" No existe el producto con el nombre: "+nombreproducto){
+                                alert(informacion)
+                            }
+                            else{
+                                $("#exito").html(informacion)
+                                borrartexto();
+                                quitarspan();
+                            }
                         });
-                    borrartexto();
                 }
                 else {
-                    $("#exito").html(ejecutar);
+                    alert(ejecutar);
                 }
 
             })
@@ -92,23 +99,12 @@ $(document).ready(function () {
 
         $("#EliminarProducto").click(
             function () {
-                var nombreproducto = $("#NombreProducto").val();
-                var ejecutar = validarnombre(nombreproducto);
-                if (ejecutar == true) {
-                    $.post("EliminarProducto.php",
-                        {nombre: nombreproducto},
-                        function (informacion) {
-                            $("#exito").html(informacion)
-                        });
-                    borrartexto();
-                }
-                else {
-                    $("#exito").html(ejecutar);
-                }
             })
 
         $("#EliminarCantidadProducto").click(
+            function () {
 
+            }
             )
     }
 )
@@ -165,9 +161,26 @@ function borrartexto() {
 function aparecermodal() {
     document.getElementsByClassName("modal")[0].style.display="block";
 }
-function reloj() {
-        $("#spanagregar").html("")
-}
 function quitarspan() {
     document.getElementsByClassName('modal')[0].style.display= "none";
+}
+function limpiarspanpaginaprincipal() {
+    $("#exito").html("");
+}
+function aparecerspanparabuscar() {
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor="dodgerblue";
+    document.getElementById("AgregarProducto").style.display="none";
+    document.getElementById("BuscarProducto").style.display="block";
+    document.getElementById("agregarmodal").style.display="none";
+    document.getElementById("buscarmodal").style.display="block";
+    document.getElementById("CantidadProducto").style.display="none"
+
+}
+function aparecerspanparaagregar() {
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor="";
+    document.getElementById("AgregarProducto").style.display="block";
+    document.getElementById("BuscarProducto").style.display="none";
+    document.getElementById("agregarmodal").style.display="block";
+    document.getElementById("buscarmodal").style.display="none";
+    document.getElementById("CantidadProducto").style.display="block"
 }

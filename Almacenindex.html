@@ -26,15 +26,18 @@
 
         <div>
             <input class="btn btn-primary col-sm-5" type="button" value="Ver Productos" id="VerProducto">
-            <input class="btn btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProducto">
+            <input class="btn btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProductoInicio">
+
         </div>
         <div>
             <span class="col-sm-8" id="exito"></span>
         </div>
+
         <div class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2>Agregando Producto</h2>
+                    <h2 id="agregarmodal">Agregando Producto</h2>
+                    <h2 id="buscarmodal">Buscando Producto</h2>
                     <span class="close" id="salir">&times;</span>
                 </div>
                     <br/>
@@ -46,11 +49,13 @@
                             <input class="col-sm-8" type="number" id="CantidadProducto" placeholder="Cantidad del Producto...">
                         </div>
                     <br/>
+                        <input class="btn btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProducto">
                         <input class="btn btn-success col-sm-4" type="button" value="Agregar Producto" id="AgregarProducto">
                     <br/>
                         <span class="col-sm-8" id="spanagregar"></span>
             </div>
         </div>
+
 
     </div>
 </div>

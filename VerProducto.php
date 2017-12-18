@@ -6,7 +6,7 @@ try {
     $consulta = mysqli_query($con, "SELECT * FROM bodega ORDER BY NombreProducto ASC");
     $tamanio = mysqli_num_rows($consulta);
     if ($tamanio > 0) {
-        echo "<table list-style-type: class='TFtable col-sm-8'>" .
+        echo "<table>" .
             "<tr>" .
             "<th>" . "Nombre del producto" . "</th>" .
             "<th>" . "Cantidad" . "</th>" .
