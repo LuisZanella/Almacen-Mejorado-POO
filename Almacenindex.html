@@ -19,39 +19,37 @@
         <br/>
 
         <div>
-            <input class="btn btn-success col-sm-4" type="button" value="Agregar Producto" id="AgregarProducto">
-            <input class="btn btn-danger col-sm-4" type="button" value="Eliminar Producto" id="EliminarProducto">
+            <input class="btn btn-success col-sm-10" type="button" value="Agregar Producto" id="AgregarProductoInicio">
         </div>
 
         <br/><br/>
 
         <div>
-            <input class="btn btn-primary col-sm-4" type="button" value="Ver Productos" id="VerProducto">
-            <input class="btn btn-primary col-sm-4" type="button" value="Buscar Producto" id="BuscarProducto">
+            <input class="btn btn-primary col-sm-5" type="button" value="Ver Productos" id="VerProducto">
+            <input class="btn btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProducto">
         </div>
-
-        <br/><br/>
-
-        <div>
-            <input class="btn btn-info col-sm-4" type="button" value="Compra" id="AgregarCantidadProducto">
-            <input class="btn btn-info col-sm-4" type="button" value="Venta" id="EliminarCantidadProducto">
-        </div>
-
-        <br/><br/>
-
-        <div>
-            <input class="col-sm-8" type="text" id="NombreProducto" placeholder="Nombre del Producto...">
-        </div>
-
-        <br/><br/>
-
-        <div>
-            <input class="col-sm-8" type="number" id="CantidadProducto" placeholder="Cantidad del Producto...">
-        </div>
-        <br/>
-
         <div>
             <span class="col-sm-8" id="exito"></span>
+        </div>
+        <div class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Agregando Producto</h2>
+                    <span class="close" id="salir">&times;</span>
+                </div>
+                    <br/>
+                        <div>
+                            <input class="col-sm-8" type="text" id="NombreProducto" placeholder="Nombre del Producto...">
+                        </div>
+                    <br/>
+                        <div>
+                            <input class="col-sm-8" type="number" id="CantidadProducto" placeholder="Cantidad del Producto...">
+                        </div>
+                    <br/>
+                        <input class="btn btn-success col-sm-4" type="button" value="Agregar Producto" id="AgregarProducto">
+                    <br/>
+                        <span class="col-sm-8" id="spanagregar"></span>
+            </div>
         </div>
 
     </div>

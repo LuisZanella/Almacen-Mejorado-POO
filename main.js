@@ -1,20 +1,46 @@
 $(document).ready(function () {
+        $("#AgregarProductoInicio").click(
+            function () {
+                aparecermodal()
+
+                window.onclick = function(event) {
+                    if (event.target == document.getElementsByClassName('modal')[0]) {
+                        quitarspan();
+                    }
+                }
+                $("#salir").click(
+                    function () {
+                        quitarspan()
+                    }
+                )
+            }
+
+        )
+
+
         $("#AgregarProducto").click(
             function () {
+
+
+
                 var nombreproducto = $("#NombreProducto").val();
                 var cantidadproducto = $("#CantidadProducto").val();
                 var ejecutar = validar(nombreproducto, cantidadproducto);
+
                 if (ejecutar == true) {
                     $.post("AgregarProducto.php",
                         {nombre: nombreproducto, cantidad: cantidadproducto},
                         function (informacion) {
-                            $("#exito").html(informacion)
+                            $("#spanagregar").html(informacion)
                         });
                     borrartexto();
+                    quitarspan();
+
                 }
                 else {
-                    $("#exito").html(ejecutar);
+                    $("#spanagregar").html(ejecutar);
                 }
+                setTimeout(reloj, 5000)
             }
         )
         $("#AgregarCantidadProducto").click(
@@ -82,25 +108,8 @@ $(document).ready(function () {
             })
 
         $("#EliminarCantidadProducto").click(
-            function () {
 
-                var nombreproducto = $("#NombreProducto").val();
-                var cantidadproducto = $("#CantidadProducto").val();
-                var ejecutar = validar(nombreproducto, cantidadproducto);
-                if (ejecutar == true) {
-                    $.post("EliminarCantidadProducto.php",
-                        {nombre: nombreproducto, cantidad: cantidadproducto},
-                        function (informacion) {
-                            $("#exito").html(informacion)
-                            if (informacion !== "***Usted no tiene tanta cantidad de ese producto***") {
-                                borrartexto();
-                            }
-                        });
-                }
-                else {
-                    $("#exito").html(ejecutar);
-                }
-            })
+            )
     }
 )
 
@@ -153,3 +162,12 @@ function borrartexto() {
     document.getElementById("CantidadProducto").value = "";
 }
 
+function aparecermodal() {
+    document.getElementsByClassName("modal")[0].style.display="block";
+}
+function reloj() {
+        $("#spanagregar").html("")
+}
+function quitarspan() {
+    document.getElementsByClassName('modal')[0].style.display= "none";
+}
