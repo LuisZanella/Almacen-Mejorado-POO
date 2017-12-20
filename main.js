@@ -232,12 +232,18 @@ function aparecerspanparacomprarvender() {
 }
 
 function preguntaeliminar(id) {
-    alertify.confirm('Pregunta Preguntador', '¿Está seguro de eliminar este elemento?',
+    /*Tambien se puede utilizar para no usar librerias externas
+
+    if(confirm("seguro?")){
+        alert("Hola");
+    }
+    */
+    alertify.confirm('¡ALERTA!', '¿Está seguro de eliminar este elemento?',
         function () {
             eliminardatos(id)
         },
         function () {
-            alertify.error('Nel prro')
+            alertify.error('Cancelado')
         }
     )
 }
@@ -246,7 +252,7 @@ function eliminardatos(id) {
     $.post("EliminarProducto.php", {id: id},
         function () {
             cargartabla();
-            alertify.success('Ya que se elimino que sigue? :v');
+            alertify.success('Eliminado');
         }
     )
 }
