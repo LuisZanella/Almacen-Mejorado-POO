@@ -1,6 +1,8 @@
+$.getScript("http://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js");
 
 $(document).ready(function () {
-        window.onclick = function(event) {
+        cargartabla();
+        window.onclick = function (event) {
             if (event.target == document.getElementsByClassName('modal')[0]) {
                 quitarspan();
             }
@@ -11,70 +13,49 @@ $(document).ready(function () {
             }
         )
 
+
         $("#AgregarProductoInicio").click(
             function () {
                 aparecermodal();
-                limpiarspanpaginaprincipal();
                 aparecerspanparaagregar();
-
             }
-
         )
-            $("#BuscarProductoInicio").click(
-                function () {
-                    aparecermodal();
-                    limpiarspanpaginaprincipal();
-                    aparecerspanparabuscar();
-
-                }
-
-            )
-
-
-
+        $("#BuscarProductoInicio").click(
+            function () {
+                aparecermodal();
+                aparecerspanparabuscar();
+            }
+        )
         $("#AgregarProducto").click(
             function () {
-
-                var nombreproducto = $("#NombreProducto").val();
-                var cantidadproducto = $("#CantidadProducto").val();
+                var nombreproducto = $("#NombreProductoModal").val();
+                var cantidadproducto = $("#CantidadProductoModal").val();
                 var ejecutar = validar(nombreproducto, cantidadproducto);
 
                 if (ejecutar == true) {
                     $.post("AgregarProducto.php",
-                        {nombre: nombreproducto, cantidad: cantidadproducto},
-                        function (informacion) {
-                            alert(informacion)
-                        });
+                        {nombre: nombreproducto, cantidad: cantidadproducto});
                     borrartexto();
                     quitarspan();
-
+                    cargartabla();
                 }
                 else {
                     alert(ejecutar);
                 }
             }
-        )
-
-        $("#AgregarCantidadProducto").click(
-            function () {
-            }
-        )
-
+        );
         $("#BuscarProducto").click(
             function () {
-                aparecermodal();
-                limpiarspanpaginaprincipal();
-                var nombreproducto = $("#NombreProducto").val();
+                var nombreproducto = $("#NombreProductoModal").val();
                 var ejecutar = validarnombre(nombreproducto);
                 if (ejecutar == true) {
-                    $.post("BuscarProducto.php",
-                        {nombre: nombreproducto},
+                    $.post("BuscarProducto.php",{nombre: nombreproducto},
                         function (informacion) {
-                            if (informacion==" No existe el producto con el nombre: "+nombreproducto){
-                                alert(informacion)
+                            if (informacion == false) {
+                                alert("No existe ese producto")
                             }
-                            else{
-                                $("#exito").html(informacion)
+                            else {
+                                cargartablabuscar(informacion);
                                 borrartexto();
                                 quitarspan();
                             }
@@ -83,46 +64,72 @@ $(document).ready(function () {
                 else {
                     alert(ejecutar);
                 }
+            });
 
-            })
-
-
-        $("#VerProducto").click(
-            function () {
-                $.get("VerProducto.php",
-                    function (informacion) {
-                        $("#exito").html(informacion)
+    $("#ComprarProducto").click
+    (
+        function () {
+            var cantidadproducto = $("#CantidadProductoModal").val();
+            var ejecutar = validarcantidad(cantidadproducto);
+            if (ejecutar==true)
+                $.post("AgregarCantidadProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val()},
+                    function () {
+                        borrartexto();
+                        quitarspan();
+                        cargartabla();
                     });
-                borrartexto();
-            })
-
-
-        $("#EliminarProducto").click(
-            function () {
-            })
-
-        $("#EliminarCantidadProducto").click(
-            function () {
-
+            else {
+                alert(ejecutar);
             }
-            )
+        }
+    )
+    $("#VenderProducto").click
+    (
+        function () {
+            var cantidadproducto = $("#CantidadProductoModal").val();
+            var ejecutar = validarcantidad(cantidadproducto);
+            if (ejecutar==true)
+                $.post("EliminarCantidadProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val()},
+                    function (respuesta) {
+                        if (respuesta!=="***Usted no tiene tanta cantidad de ese producto***"){
+                        borrartexto();
+                        quitarspan();
+                        cargartabla();
+                        }
+                        else{
+                            alert(respuesta);
+                        }
+
+                    });
+            else {
+                alert(ejecutar);
+            }
+        }
+    )
     }
-)
+);
+
+function cargartabla() {
+    $('#tabla').load('Tabla.php');
+}
+function cargartablabuscar(tabla) {
+    $('#tabla').html(tabla);
+}
 
 function validar(nombreproducto, cantidadproducto) {
     var mensaje = "";
     switch (true) {
-        case nombreproducto !== "" && cantidadproducto !== "" && nombreproducto.length <= 50 && (isNaN(parseInt(cantidadproducto))) == false && cantidadproducto >= 0:
+        case nombreproducto !== "" && cantidadproducto !== "" && nombreproducto.length <= 50 && ((isNaN(parseInt(cantidadproducto))) == false) && cantidadproducto >= 0:
             return true;
             break;
         case nombreproducto == "":
             mensaje = mensaje + "--Introduzca un nombre porfavor--";
             break;
-        case (isNaN(parseInt(cantidadproducto)) == true):
-            mensaje = mensaje + "--Introduzca una cantidad al producto que sea numerica--"
-            break;
         case cantidadproducto == "":
             mensaje = mensaje + "--Introduzca una cantidad al producto--";
+            break;
+        case (isNaN(parseInt(cantidadproducto)) == true):
+            mensaje = mensaje + "--Introduzca una cantidad al producto que sea numerica--";
             break;
         case nombreproducto.length > 50:
             mensaje = mensaje + "--El nombre del producto es muy largo debe ser de menos de 50 caracteres--";
@@ -131,7 +138,27 @@ function validar(nombreproducto, cantidadproducto) {
             mensaje = mensaje + "--No inserte numero negativos--";
             break;
         default:
-            mensaje = mensaje + "--Error desconocido--"
+            mensaje = mensaje + "--Error desconocido--";
+            break;
+    }
+    return mensaje;
+}
+
+function validarcantidad(cantidadproducto) {
+    var mensaje = "";
+    switch (true) {
+        case (((isNaN(parseInt(cantidadproducto))) == false) && cantidadproducto >= 0 && cantidadproducto!==""):
+            return true;
+            break;
+        case (isNaN(parseInt(cantidadproducto)) == true):
+            mensaje = mensaje + "--Introduzca una cantidad al producto que sea numerica--";
+            break;
+        case cantidadproducto < 0:
+            mensaje = mensaje + "--No inserte numero negativos--";
+            break;
+
+        default:
+            mensaje = mensaje + "--Error desconocido--";
             break;
     }
     return mensaje;
@@ -154,33 +181,82 @@ function validarnombre(nombreproducto) {
 }
 
 function borrartexto() {
-    document.getElementById("NombreProducto").value = "";
-    document.getElementById("CantidadProducto").value = "";
+    document.getElementById("NombreProductoModal").value = "";
+    document.getElementById("CantidadProductoModal").value = "";
 }
 
 function aparecermodal() {
-    document.getElementsByClassName("modal")[0].style.display="block";
+    document.getElementsByClassName("modal")[0].style.display = "block";
 }
-function quitarspan() {
-    document.getElementsByClassName('modal')[0].style.display= "none";
-}
-function limpiarspanpaginaprincipal() {
-    $("#exito").html("");
-}
-function aparecerspanparabuscar() {
-    document.getElementsByClassName('modal-header')[0].style.backgroundColor="dodgerblue";
-    document.getElementById("AgregarProducto").style.display="none";
-    document.getElementById("BuscarProducto").style.display="block";
-    document.getElementById("agregarmodal").style.display="none";
-    document.getElementById("buscarmodal").style.display="block";
-    document.getElementById("CantidadProducto").style.display="none"
 
+function quitarspan() {
+    document.getElementsByClassName("modal")[0].style.display = "none";
 }
+
+function BaseModal() {
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "";
+    document.getElementById("AgregarProducto").style.display = "none";
+    document.getElementById("BuscarProducto").style.display = "none";
+    document.getElementById("ComprarProducto").style.display = "none";
+    document.getElementById("VenderProducto").style.display = "none";
+    document.getElementById("AgregarModal").style.display = "none";
+    document.getElementById("BuscarModal").style.display = "none";
+    document.getElementById("CompraVentamodal").style.display = "none";
+    document.getElementById("CantidadProductoModal").style.display = "none";
+    document.getElementById("NombreProductoModal").style.display = "none";
+}
+
 function aparecerspanparaagregar() {
-    document.getElementsByClassName('modal-header')[0].style.backgroundColor="";
-    document.getElementById("AgregarProducto").style.display="block";
-    document.getElementById("BuscarProducto").style.display="none";
-    document.getElementById("agregarmodal").style.display="block";
-    document.getElementById("buscarmodal").style.display="none";
-    document.getElementById("CantidadProducto").style.display="block"
+    BaseModal();
+    document.getElementById("AgregarProducto").style.display = "block";
+    document.getElementById("AgregarModal").style.display = "block";
+    document.getElementById("CantidadProductoModal").style.display = "block";
+    document.getElementById("NombreProductoModal").style.display = "block";
+}
+
+function aparecerspanparabuscar() {
+    BaseModal();
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "dodgerblue";
+    document.getElementById("BuscarProducto").style.display = "block";
+    document.getElementById("BuscarModal").style.display = "block";
+    document.getElementById("NombreProductoModal").style.display = "block";
+}
+
+function aparecerspanparacomprarvender() {
+    BaseModal();
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "#e68a00"
+    document.getElementById("CompraVentamodal").style.display = "block";
+    document.getElementById("ComprarProducto").style.display = "block";
+    document.getElementById("VenderProducto").style.display = "block";
+    document.getElementById("CantidadProductoModal").style.display = "block";
+}
+
+function preguntaeliminar(id) {
+    alertify.confirm('Pregunta Preguntador', '¿Está seguro de eliminar este elemento?',
+        function () {
+            eliminardatos(id)
+        },
+        function () {
+            alertify.error('Nel prro')
+        }
+    )
+}
+
+function eliminardatos(id) {
+    $.post("EliminarProducto.php", {id: id},
+        function () {
+            cargartabla();
+            alertify.success('Ya que se elimino que sigue? :v');
+        }
+    )
+}
+
+function VenderComprar() {
+    aparecermodal();
+    aparecerspanparacomprarvender();
+}
+
+function idproductos(idproducto) {
+    VenderComprar();
+    $("#idproducto").val(idproducto);
 }

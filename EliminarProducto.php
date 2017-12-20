@@ -1,15 +1,12 @@
 <?php
 try {
     include_once('conectar.php');
-    $nombreproducto = $_POST["nombre"];
+    $id = $_POST["id"];
     $respuesta = "";
 
-    $productos = mysqli_fetch_assoc(mysqli_query($con, "SELECT NombreProducto FROM bodega WHERE NombreProducto='$nombreproducto'"));
+    $productos = mysqli_fetch_assoc(mysqli_query($con, "SELECT * FROM bodega WHERE IdProducto='$id'"));
     if ($productos != 0) {
-        mysqli_query($con, "DELETE FROM bodega WHERE NombreProducto='$nombreproducto'");
-        $respuesta = "$respuesta Producto eliminado ";
-    } else {
-        $respuesta = "$respuesta Ese producto no existe ";
+        mysqli_query($con, "DELETE FROM bodega WHERE IdProducto='$id'");
     }
 } catch (Exception $ex) {
     $respuesta = "$respuesta Error";

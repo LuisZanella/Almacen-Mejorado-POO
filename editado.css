@@ -1,4 +1,6 @@
 @import url(https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css);
+@import url(https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css);
+@import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
 .btn-success, .btn-danger, .btn-primary, .btn-info {
     cursor: pointer;
@@ -7,34 +9,37 @@
     border-color: white;
 
 }
-
-.centrar {
-    position: absolute;
-    left: 35%;
-    top: 20%;
-    height: 5%;
-    width: 40%;
+.centrar{
+    left: 25%;
+    right: 25%;
+    top: 10%;
 }
-
+.centrartabla {
+    position: absolute;
+    left: 25%;
+    right:25%;
+    top: 30%;
+    height: 10%;
+    width: 80%;
+}
 body {
     background: beige;
 }
+table th,td{
+    border: 1px solid #ddd;
+    padding: 8px;
+
+}
 table th{
-    background-color: dodgerblue;
-    padding:7px; border:white 2px solid;
-    color:black;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
 }
-table td{
-    padding:7px; border:white 2px solid;
-}
-/* provide some minimal visual accomodation for IE8 and below */
-table tr{
-    background: #b8d1f3;
-}
-/*  Define the background color for all the EVEN background rows  */
-table tr:nth-child(even){
-    background: #dae5f4;
-}
+tr:nth-child(even){background-color: #f2f2f2;}
+
+tr:hover {background-color: #ddd;}
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -76,6 +81,7 @@ table tr:nth-child(even){
 .modal-header {
     padding: 2px 16px;
     background-color: #5cb85c;
-    color: white;
+    color: Black;
+    text-shadow: 1px 2px white;
 }
 

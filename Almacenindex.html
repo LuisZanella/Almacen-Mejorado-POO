@@ -13,44 +13,44 @@
 
 </head>
 <body>
-<div class="centrar">
     <div class="container">
 
-        <br/>
+            <br/>
+            <div class="row col-sm-6 centrar">
+                <input class="btn-block btn-success" type="button" value="Agregar Producto" id="AgregarProductoInicio">
+            </div>
+                <br/>
+            <div class="row col-sm-6 centrar">
+                <input class="btn-block btn-primary" type="button" value="Buscar Producto" id="BuscarProductoInicio">
 
-        <div>
-            <input class="btn btn-success col-sm-10" type="button" value="Agregar Producto" id="AgregarProductoInicio">
-        </div>
-
-        <br/><br/>
-
-        <div>
-            <input class="btn btn-primary col-sm-5" type="button" value="Ver Productos" id="VerProducto">
-            <input class="btn btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProductoInicio">
-
-        </div>
-        <div>
-            <span class="col-sm-8" id="exito"></span>
+            </div>
+            <br/>
+        <div class="row centrartabla" id="tabla">
+        <!--Tabla-->
         </div>
 
         <div class="modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h2 id="agregarmodal">Agregando Producto</h2>
-                    <h2 id="buscarmodal">Buscando Producto</h2>
+                    <h2 id="AgregarModal">Agregando Producto</h2>
+                    <h2 id="BuscarModal">Buscando Producto</h2>
+                    <h2 id="CompraVentamodal">Comprando/Vendiendo</h2>
                     <span class="close" id="salir">&times;</span>
                 </div>
                     <br/>
                         <div>
-                            <input class="col-sm-8" type="text" id="NombreProducto" placeholder="Nombre del Producto...">
+                            <input class="col-sm-8" type="text" id="NombreProductoModal" placeholder="Nombre del Producto...">
                         </div>
                     <br/>
                         <div>
-                            <input class="col-sm-8" type="number" id="CantidadProducto" placeholder="Cantidad del Producto...">
+                            <input class="col-sm-8" type="number" id="CantidadProductoModal" placeholder="Cantidad del Producto...">
                         </div>
                     <br/>
                         <input class="btn btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProducto">
                         <input class="btn btn-success col-sm-4" type="button" value="Agregar Producto" id="AgregarProducto">
+                        <input class="btn btn-danger col-sm-4" type="button" value="Comprar" id="ComprarProducto">
+                        <input class="btn btn-success col-sm-4" type="button" value="Vender" id="VenderProducto">
+                        <input class="btn btn-success col-sm-4" type="hidden" id="idproducto">
                     <br/>
                         <span class="col-sm-8" id="spanagregar"></span>
             </div>
@@ -58,6 +58,5 @@
 
 
     </div>
-</div>
 </body>
 </html>
