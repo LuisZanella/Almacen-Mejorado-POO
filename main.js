@@ -267,13 +267,15 @@ function aparecerspanparacomprarvender() {
     document.getElementById("VenderProducto").style.display = "block";
     document.getElementById("CantidadProductoModal").style.display = "block";
 }
-function aparecerspanparamodificar() {
+function aparecerspanparamodificar(nombreactual,cantidadactual) {
     BaseModal();
     document.getElementsByClassName('modal-header')[0].style.backgroundColor = "yellow";
     document.getElementById("ModificarProducto").style.display = "block";
     document.getElementById("ModificarModal").style.display = "block";
     document.getElementById("CantidadProductoModal").style.display = "block";
     document.getElementById("NombreProductoModal").style.display = "block";
+    $("#CantidadProductoModal").val(nombreactual) ;
+    $("#NombreProductoModal").val(cantidadactual);
 }
 
 function preguntaeliminar(id) {
@@ -310,7 +312,8 @@ function VenderComprar() {
 function idproductos(idproducto) {
     $("#idproducto").val(idproducto);
 }
-function modificar() {
+function modificar(nombreactual,cantidadactual) {
     aparecermodal();
-    aparecerspanparamodificar();
+    aparecerspanparamodificar(nombreactual,cantidadactual);
+
 }
