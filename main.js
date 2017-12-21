@@ -3,36 +3,34 @@ $.getScript("http://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js
 $(document).ready(function () {
         cargartabla();
         window.onclick = function (event) {
-            if (event.target == document.getElementsByClassName('modal')[0]) {
+            if (event.target === document.getElementsByClassName('modal')[0]) {
                 quitarspan();
             }
-        }
+        };
         $("#salir").click(
             function () {
                 quitarspan()
             }
-        )
-
-
+        );
         $("#AgregarProductoInicio").click(
             function () {
                 aparecermodal();
                 aparecerspanparaagregar();
             }
-        )
+        );
         $("#BuscarProductoInicio").click(
             function () {
                 aparecermodal();
                 aparecerspanparabuscar();
             }
-        )
+        );
         $("#AgregarProducto").click(
             function () {
                 var nombreproducto = $("#NombreProductoModal").val();
                 var cantidadproducto = $("#CantidadProductoModal").val();
                 var ejecutar = validar(nombreproducto, cantidadproducto);
 
-                if (ejecutar == true) {
+                if (ejecutar === true) {
                     $.post("AgregarProducto.php",
                         {nombre: nombreproducto, cantidad: cantidadproducto});
                     borrartexto();
@@ -48,10 +46,10 @@ $(document).ready(function () {
             function () {
                 var nombreproducto = $("#NombreProductoModal").val();
                 var ejecutar = validarnombre(nombreproducto);
-                if (ejecutar == true) {
+                if (ejecutar === true) {
                     $.post("BuscarProducto.php",{nombre: nombreproducto},
                         function (informacion) {
-                            if (informacion == false) {
+                            if (informacion === false) {
                                 alert("No existe ese producto")
                             }
                             else {
@@ -71,7 +69,7 @@ $(document).ready(function () {
         function () {
             var cantidadproducto = $("#CantidadProductoModal").val();
             var ejecutar = validarcantidad(cantidadproducto);
-            if (ejecutar==true)
+            if (ejecutar===true)
                 $.post("AgregarCantidadProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val()},
                     function () {
                         borrartexto();
@@ -82,13 +80,29 @@ $(document).ready(function () {
                 alert(ejecutar);
             }
         }
-    )
+    );
+    $("#ModificarProducto").click (
+        function () {
+            var cantidadproducto = $("#CantidadProductoModal").val();
+            var nombreproducto = $("#NombreProductoModal").val();
+            var ejecutar= validarmodificar(nombreproducto,cantidadproducto);
+                if(ejecutar===true){
+                $.post("ModificarProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val(),nombre:nombreproducto},
+                    function () {
+                            borrartexto();
+                            quitarspan();
+                            cargartabla();
+                    });
+                }
+                else {alert(ejecutar);}
+            }
+          );
     $("#VenderProducto").click
     (
         function () {
             var cantidadproducto = $("#CantidadProductoModal").val();
             var ejecutar = validarcantidad(cantidadproducto);
-            if (ejecutar==true)
+            if (ejecutar===true)
                 $.post("EliminarCantidadProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val()},
                     function (respuesta) {
                         if (respuesta!=="***Usted no tiene tanta cantidad de ese producto***"){
@@ -119,16 +133,15 @@ function cargartablabuscar(tabla) {
 function validar(nombreproducto, cantidadproducto) {
     var mensaje = "";
     switch (true) {
-        case nombreproducto !== "" && cantidadproducto !== "" && nombreproducto.length <= 50 && ((isNaN(parseInt(cantidadproducto))) == false) && cantidadproducto >= 0:
+        case nombreproducto !== "" && cantidadproducto !== "" && nombreproducto.length <= 50 && !isNaN(parseInt(cantidadproducto)) && cantidadproducto >= 0:
             return true;
-            break;
-        case nombreproducto == "":
+        case nombreproducto === "":
             mensaje = mensaje + "--Introduzca un nombre porfavor--";
             break;
-        case cantidadproducto == "":
+        case cantidadproducto === "":
             mensaje = mensaje + "--Introduzca una cantidad al producto--";
             break;
-        case (isNaN(parseInt(cantidadproducto)) == true):
+        case isNaN(parseInt(cantidadproducto)):
             mensaje = mensaje + "--Introduzca una cantidad al producto que sea numerica--";
             break;
         case nombreproducto.length > 50:
@@ -147,10 +160,9 @@ function validar(nombreproducto, cantidadproducto) {
 function validarcantidad(cantidadproducto) {
     var mensaje = "";
     switch (true) {
-        case (((isNaN(parseInt(cantidadproducto))) == false) && cantidadproducto >= 0 && cantidadproducto!==""):
+        case !isNaN(parseInt(cantidadproducto)) && cantidadproducto >= 0 && cantidadproducto!=="":
             return true;
-            break;
-        case (isNaN(parseInt(cantidadproducto)) == true):
+        case isNaN(parseInt(cantidadproducto)):
             mensaje = mensaje + "--Introduzca una cantidad al producto que sea numerica--";
             break;
         case cantidadproducto < 0:
@@ -169,8 +181,7 @@ function validarnombre(nombreproducto) {
     switch (true) {
         case nombreproducto !== "" && nombreproducto.length <= 50:
             return true;
-            break;
-        case nombreproducto == "":
+        case nombreproducto === "":
             mensaje = mensaje + "--Introduzca nombre del producto--";
             break;
         case nombreproducto.length > 50:
@@ -179,7 +190,29 @@ function validarnombre(nombreproducto) {
     }
     return mensaje;
 }
-
+function validarmodificar(nombreproducto,cantidadproducto) {
+    var mensaje="";
+    switch (true) {
+        case !isNaN(parseInt(cantidadproducto)) && cantidadproducto >= 0 && nombreproducto!=="":
+            return true;
+        case nombreproducto!=="" && nombreproducto.length<50:
+            return true;
+        case !isNaN(parseInt(cantidadproducto)) && cantidadproducto >= 0:
+            return true;
+        case nombreproducto ==="" && isNaN(parseInt(cantidadproducto)) || nombreproducto==="" && cantidadproducto==="":
+            mensaje= "--Introduzca un nombre para modificar como mínimo--";
+            break;
+        case nombreproducto>50:
+            mensaje="--El nombre del producto es demasiado largo--";
+            break;
+        case isNaN(parseInt(cantidadproducto)) :
+            mensaje = "--Introduzca una cantidad de producto numerica--";
+            break;
+        case cantidadproducto < 0:
+            mensaje = "--No inserte numero negativos--";
+    }
+    return mensaje;
+}
 function borrartexto() {
     document.getElementById("NombreProductoModal").value = "";
     document.getElementById("CantidadProductoModal").value = "";
@@ -199,9 +232,13 @@ function BaseModal() {
     document.getElementById("BuscarProducto").style.display = "none";
     document.getElementById("ComprarProducto").style.display = "none";
     document.getElementById("VenderProducto").style.display = "none";
+    document.getElementById("ModificarProducto").style.display = "none";
+
+    document.getElementById("ModificarModal").style.display = "none";
     document.getElementById("AgregarModal").style.display = "none";
     document.getElementById("BuscarModal").style.display = "none";
-    document.getElementById("CompraVentamodal").style.display = "none";
+    document.getElementById("CompraVentaModal").style.display = "none";
+
     document.getElementById("CantidadProductoModal").style.display = "none";
     document.getElementById("NombreProductoModal").style.display = "none";
 }
@@ -224,11 +261,19 @@ function aparecerspanparabuscar() {
 
 function aparecerspanparacomprarvender() {
     BaseModal();
-    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "#e68a00"
-    document.getElementById("CompraVentamodal").style.display = "block";
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "#e68a00";
+    document.getElementById("CompraVentaModal").style.display = "block";
     document.getElementById("ComprarProducto").style.display = "block";
     document.getElementById("VenderProducto").style.display = "block";
     document.getElementById("CantidadProductoModal").style.display = "block";
+}
+function aparecerspanparamodificar() {
+    BaseModal();
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "yellow";
+    document.getElementById("ModificarProducto").style.display = "block";
+    document.getElementById("ModificarModal").style.display = "block";
+    document.getElementById("CantidadProductoModal").style.display = "block";
+    document.getElementById("NombreProductoModal").style.display = "block";
 }
 
 function preguntaeliminar(id) {
@@ -263,6 +308,9 @@ function VenderComprar() {
 }
 
 function idproductos(idproducto) {
-    VenderComprar();
     $("#idproducto").val(idproducto);
+}
+function modificar() {
+    aparecermodal();
+    aparecerspanparamodificar();
 }

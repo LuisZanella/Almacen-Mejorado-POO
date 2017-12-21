@@ -18,8 +18,9 @@ $tamanio = mysqli_num_rows($consulta);
                     <td><?php echo $ver[1] ?></td>
                     <td><?php echo $ver[2] ?></td>
                     <td>
-                        <input class="btn btn-success col-sm-6 material-icons" type="button" value="attach_money" id="VenderComprar" onclick="idproductos('<?php echo $ver[0]?>')">
-                        <input class="btn btn-danger col-sm-5 material-icons" type="button" value="delete_sweep" id="EliminarProducto" onclick="preguntaeliminar('<?php echo $ver[0]?>')">
+                        <input class="btn btn-success col-sm-3 material-icons" type="button" value="attach_money" id="VenderComprar" onclick="idproductos('<?php echo $ver[0]?>'); VenderComprar();">
+                        <input class="btn btn-warning col-sm-3 material-icons" type="button" value="mode_edit" id="ModificarProductoInicio" onclick="idproductos('<?php echo $ver[0]?>'); modificar();">
+                        <input class="btn btn-danger col-sm-3 material-icons" type="button" value="delete_sweep" id="EliminarProducto" onclick="preguntaeliminar('<?php echo $ver[0]?>')">
                     </td>
                 </tr>
                 <?php }?>
