@@ -2,12 +2,14 @@
 @import url(https://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/css/alertify.min.css);
 @import url(https://fonts.googleapis.com/icon?family=Material+Icons);
 
-.btn-success, .btn-danger, .btn-primary, .btn-info,.btn-warning{
+.btn-success, .btn-danger, .btn-primary, .btn-info,.btn-warning,.btn-save{
     cursor: pointer;
-    border-width: 5px;
     border-style: double;
     border-color: white;
 
+}
+.btn-save{
+    background: purple;
 }
 .izquierdaseparado{
     left: 10%;

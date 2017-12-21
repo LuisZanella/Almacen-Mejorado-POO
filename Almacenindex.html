@@ -13,55 +13,73 @@
 
 </head>
 <body>
-    <div class="container">
+<div class="container form-horizontal">
 
-            <br/>
-            <div class="row col-sm-12 centrar">
-                <input class="btn-block btn-success col-sm-5" type="button" value="Agregar Producto" id="AgregarProductoInicio">
-            </div>
-                <br/>
-            <div class="row col-sm-12 centrar">
-                <input class="btn-block btn-primary col-sm-5" type="button" value="Buscar Producto" id="BuscarProductoInicio">
-
-            </div>
-            <br/>
-        <div class="row col-sm-12  centrartabla" id="tabla">
-        <!--Tabla-->
+    <br/>
+    <div class="row">
+        <div class="offset-sm-8 col-sm-2">
+            <a class="btn btn-block btn-success" title="Agregar Producto" id="AgregarProductoInicio"><i
+                    class="material-icons">local_hospital</i></a>
         </div>
-
-        <div class="modal">
-            <div class="modal-content">
-                <div class="row modal-header">
-                    <h2 id="AgregarModal">Agregando Producto</h2>
-                    <h2 id="BuscarModal">Buscando Producto</h2>
-                    <h2 id="CompraVentaModal">Compra/Venta</h2>
-                    <h2 id="ModificarModal">Modificar Producto</h2>
-                    <span class="close" id="salir">&times;</span>
-                </div>
-                    <br/> <br/>
-                        <div class="row col-sm-12">
-                            <input class="col-sm-10 izquierdaseparado"  type="text" id="NombreProductoModal" placeholder="Nombre del Producto...">
-                        </div>
-                    <br/>
-                        <div class="row col-sm-12">
-                            <input class="col-sm-10 izquierdaseparado" type="number" id="CantidadProductoModal" placeholder="Cantidad del Producto...">
-                        </div>
-                    <br/>
-                    <div class="row col-sm-12">
-                        <input class="btn btn-primary col-sm-2  material-icons izquierdoseparadoboton" type="button" value="my_location" id="BuscarProducto">
-                        <input class="btn btn-warning col-sm-2 material-icons izquierdoseparadoboton" type="button" value="mode_edit" id="ModificarProducto">
-                        <input class="btn btn-success col-sm-2 material-icons izquierdoseparadoboton" type="button" value="add_box" id="AgregarProducto">
-                    </div>
-                    <div class="row col-sm-12">
-                        <input class="btn btn-warning col-sm-3  material-icons izquierdaseparado" type="button" value="compare_arrows" id="ComprarProducto">
-                        <input class="btn btn-success col-sm-3  material-icons hastaderecha" type="button" value="shopping_cart" id="VenderProducto">
-                    </div>
-                        <input class="btn btn-success col-sm-4" type="hidden" id="idproducto">
-                    <br/>
-                        <span class="col-sm-8" id="spanagregar"></span>
-            </div>
+        <div class="col-sm-2">
+            <a class="btn btn-block btn-primary" title="Buscar Producto" id="BuscarProductoInicio"><i
+                    class="material-icons">search</i></a>
         </div>
-
     </div>
+    <br/>
+    <div class="row">
+        <div class="col-sm-12  centrartabla" id="tabla">
+            <!--Tabla-->
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="offset-sm-10 col-sm-2">
+            <a class="btn btn-block btn-warning" style="display: none;" title="Regresar" id="Regresar"><i class="material-icons">keyboard_return</i></a>
+        </div>
+    </div>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="row modal-header">
+                <h2 id="AgregarModal">Agregando Producto</h2>
+                <h2 id="BuscarModal">Buscando Producto</h2>
+                <h2 id="CompraVentaModal">Compra/Venta</h2>
+                <h2 id="ModificarModal">Modificar Producto</h2>
+                <span class="close" id="salir">&times;</span>
+            </div>
+            <br/> <br/>
+            <div class="row col-sm-12">
+                <input class="col-sm-10 izquierdaseparado" type="text" id="NombreProductoModal"
+                       placeholder="Nombre del Producto...">
+            </div>
+            <br/>
+            <div class="row col-sm-12">
+                <input class="col-sm-10 izquierdaseparado" type="number" id="CantidadProductoModal"
+                       placeholder="Cantidad del Producto...">
+            </div>
+            <br/>
+            <div class="row col-sm-12 izquierdoseparadoboton">
+                <a class="btn btn-primary" id="BuscarProducto"><i class="material-icons">my_location</i></a>
+            </div>
+            <div class=" row col-sm-12 izquierdoseparadoboton">
+                <a class="btn btn-save" id="ModificarProducto"><i class="material-icons">save</i></a>
+            </div>
+            <div class="row col-sm-12 izquierdoseparadoboton">
+                <a class="btn btn-success" id="AgregarProducto"><i class="material-icons">add_box</i></a>
+            </div>
+            <div class="row col-sm-12">
+                <div class="col-sm-6">
+                    <a title="Comprar" class="btn btn-warning" id="ComprarProducto"><i
+                            class="material-icons">archive</i></a>
+                </div>
+                <div class="col-sm-6">
+                    <a title="Vender" class="btn btn-success" id="VenderProducto"><i class="material-icons">shopping_cart</i></a>
+                </div>
+            </div>
+            <input type="hidden" id="idproducto">
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

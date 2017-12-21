@@ -1,9 +1,20 @@
 <?php
 include_once('conectar.php');
 $respuesta = "";
-$consulta = mysqli_query($con, "SELECT * FROM bodega ORDER BY NombreProducto ASC");
-$tamanio = mysqli_num_rows($consulta);
-
+$TipoBusqueda=$_POST["TipoBusqueda"];
+switch ($TipoBusqueda){
+    case 1:
+        $consulta = mysqli_query($con, "SELECT * FROM bodega ORDER BY NombreProducto ASC");
+        $tamanio = mysqli_num_rows($consulta);
+        break;
+    case 2:
+        $nombre = $_POST["nombre"];
+        $consulta = mysqli_query($con, "SELECT * FROM bodega WHERE NombreProducto LIKE '%$nombre%'");
+        break;
+    default:
+        return false;
+}
+if (mysqli_num_rows($consulta) > 0) {
 ?>
 <div class="row">
     <div class="col-sm-12">
@@ -36,7 +47,13 @@ $tamanio = mysqli_num_rows($consulta);
                         </div>
                     </td>
                 </tr>
-            <?php } ?>
+            <?php
+            }
+                return true;
+            }
+            else {return false;}
+
+            ?>
         </table>
     </div>
 </div>

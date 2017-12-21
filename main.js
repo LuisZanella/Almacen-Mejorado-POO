@@ -1,15 +1,23 @@
 $.getScript("http://cdn.jsdelivr.net/npm/alertifyjs@1.11.0/build/alertify.min.js");
-
+cargartabla();
 $(document).ready(function () {
-        cargartabla();
+
         window.onclick = function (event) {
             if (event.target === document.getElementsByClassName('modal')[0]) {
+                borrartexto();
                 quitarspan();
             }
         };
+        $("#Regresar").click(
+            function () {
+                cargartabla();
+                document.getElementById("Regresar").style.display="none";
+            }
+        );
         $("#salir").click(
             function () {
-                quitarspan()
+                borrartexto();
+                quitarspan();
             }
         );
         $("#AgregarProductoInicio").click(
@@ -47,7 +55,7 @@ $(document).ready(function () {
                 var nombreproducto = $("#NombreProductoModal").val();
                 var ejecutar = validarnombre(nombreproducto);
                 if (ejecutar === true) {
-                    $.post("BuscarProducto.php",{nombre: nombreproducto},
+                    $.post("Tabla.php",{nombre: nombreproducto,TipoBusqueda:2},
                         function (informacion) {
                             if (informacion === false) {
                                 alert("No existe ese producto")
@@ -56,6 +64,7 @@ $(document).ready(function () {
                                 cargartablabuscar(informacion);
                                 borrartexto();
                                 quitarspan();
+                                document.getElementById("Regresar").style.display="block";
                             }
                         });
                 }
@@ -124,7 +133,10 @@ $(document).ready(function () {
 );
 
 function cargartabla() {
-    $('#tabla').load('Tabla.php');
+    $.post("Tabla.php",{TipoBusqueda:1},
+        function (tabla) {
+            $('#tabla').html(tabla);
+        });
 }
 function cargartablabuscar(tabla) {
     $('#tabla').html(tabla);
@@ -214,8 +226,8 @@ function validarmodificar(nombreproducto,cantidadproducto) {
     return mensaje;
 }
 function borrartexto() {
-    document.getElementById("NombreProductoModal").value = "";
-    document.getElementById("CantidadProductoModal").value = "";
+    $("#NombreProductoModal").val("");
+    $("#CantidadProductoModal").val("");
 }
 
 function aparecermodal() {
@@ -269,7 +281,7 @@ function aparecerspanparacomprarvender() {
 }
 function aparecerspanparamodificar(nombreactual,cantidadactual) {
     BaseModal();
-    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "yellow";
+    document.getElementsByClassName('modal-header')[0].style.backgroundColor = "orange";
     document.getElementById("ModificarProducto").style.display = "block";
     document.getElementById("ModificarModal").style.display = "block";
     document.getElementById("CantidadProductoModal").style.display = "block";
