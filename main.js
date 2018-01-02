@@ -37,13 +37,20 @@ $(document).ready(function () {
                 var nombreproducto = $("#NombreProductoModal").val();
                 var cantidadproducto = $("#CantidadProductoModal").val();
                 var ejecutar = validar(nombreproducto, cantidadproducto);
-
                 if (ejecutar === true) {
-                    $.post("AgregarProducto.php",
-                        {nombre: nombreproducto, cantidad: cantidadproducto});
-                    borrartexto();
-                    quitarspan();
-                    cargartabla();
+                    $.post("Clases.php",
+                        {nombre: nombreproducto, cantidad: cantidadproducto, accion:"AgregarProducto"},
+                        function (respuesta) {
+                        if (respuesta==="si"){
+                            borrartexto();
+                            quitarspan();
+                            cargartabla();
+                        }
+                        else {
+                            alert("Ese Producto Ya Existe");
+                        }
+                        });
+
                 }
                 else {
                     alert(ejecutar);
@@ -79,7 +86,7 @@ $(document).ready(function () {
             var cantidadproducto = $("#CantidadProductoModal").val();
             var ejecutar = validarcantidad(cantidadproducto);
             if (ejecutar===true)
-                $.post("AgregarCantidadProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val()},
+                $.post("Clases.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val(),accion: "AgregarCantidadProducto"},
                     function () {
                         borrartexto();
                         quitarspan();
@@ -96,7 +103,7 @@ $(document).ready(function () {
             var nombreproducto = $("#NombreProductoModal").val();
             var ejecutar= validarmodificar(nombreproducto,cantidadproducto);
                 if(ejecutar===true){
-                $.post("ModificarProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val(),nombre:nombreproducto},
+                $.post("Clases.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val(),nombre:nombreproducto,accion:"ModificarProducto"},
                     function () {
                             borrartexto();
                             quitarspan();
@@ -112,15 +119,15 @@ $(document).ready(function () {
             var cantidadproducto = $("#CantidadProductoModal").val();
             var ejecutar = validarcantidad(cantidadproducto);
             if (ejecutar===true)
-                $.post("EliminarCantidadProducto.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val()},
+                $.post("Clases.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val(),accion:"EliminarCantidadProducto"},
                     function (respuesta) {
-                        if (respuesta!=="***Usted no tiene tanta cantidad de ese producto***"){
+                        if (respuesta==="si"){
                         borrartexto();
                         quitarspan();
                         cargartabla();
                         }
                         else{
-                            alert(respuesta);
+                            alert("Usted no tiene tanta cantidad de ese producto");
                         }
 
                     });
@@ -308,7 +315,7 @@ function preguntaeliminar(id) {
 }
 
 function eliminardatos(id) {
-    $.post("EliminarProducto.php", {id: id},
+    $.post("Clases.php", {idproducto: id,accion:"EliminarProducto"},
         function () {
             cargartabla();
             alertify.success('Eliminado');

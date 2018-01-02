@@ -7,9 +7,12 @@
  */
 
 namespace Conexion;
-
-
 class Conexion
 {
-
+    public $conexion;
+    public function __construct()
+    {
+        $_conexion=mysqli_connect('localhost', 'root', 'sqlserver', 'almacen');
+        $this->conexion=$_conexion;
+    }
 }
