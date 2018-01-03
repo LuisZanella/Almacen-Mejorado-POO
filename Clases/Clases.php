@@ -1,52 +1,31 @@
 <?php
-include ("Conexion.php");
-include ("GestionProductos.php");
+include("Conexion.php");
+include("GestionProductos.php");
 $accion=$_POST["accion"];
 try{
-    $ClaseConexion= new \Conexion\Conexion();
-    $conexion=$ClaseConexion->conexion;
+    $conexion=new Conexion();
+    $conexion=$conexion->conexion;
     $accion($conexion);
 }
 catch(Exception $ex){
-    $mensaje="$mensaje Error al llamar la clase conexion";
-}
-finally{
-    echo $mensaje;
+    echo "Error al llamar la clase conexion";
 }
     function AgregarCantidadProducto($conexion){
-        $cantidad=$_POST["cantidad"];
-        $idproducto=$_POST["idproducto"];
-        $GestionProducto= new \GestionProductos\GestionProductos($conexion,$idproducto,$cantidad,Null);
-        $GestionProducto->AgregarCantidadProducto();
+    GestionProductos::AgregarCantidadProducto($conexion);
     }
     function EliminarCantidadProducto($conexion){
-        $cantidad=$_POST["cantidad"];
-        $idproducto=$_POST["idproducto"];
-        $GestionProducto= new \GestionProductos\GestionProductos($conexion,$idproducto,$cantidad,Null);
-        $Mensaje= $GestionProducto->EliminarCantidadProducto();
-        echo $Mensaje;
+    $mensaje=GestionProductos::EliminarCantidadProducto($conexion);
+        echo $mensaje;
 
     }
     function EliminarProducto($conexion){
-        $idproducto=$_POST["idproducto"];
-        $GestionProducto= new \GestionProductos\GestionProductos($conexion,$idproducto,Null,Null);
-        $GestionProducto->EliminarProducto();
+    GestionProductos::EliminarProducto($conexion);
     }
     function ModificarProducto($conexion){
-        $cantidad=$_POST["cantidad"];
-        $NombreProducto=$_POST["nombre"];
-        $idproducto=$_POST["idproducto"];
-        $GestionProducto= new \GestionProductos\GestionProductos($conexion,$idproducto,$cantidad,$NombreProducto);
-        $Mensaje= $GestionProducto->ModificarProducto();
+    GestionProductos::ModificarProducto($conexion);
     }
     function AgregarProducto($conexion){
-        $cantidad=$_POST["cantidad"];
-        $NombreProducto=$_POST["nombre"];
-        $GestionProducto= new \GestionProductos\GestionProductos($conexion,null,$cantidad,$NombreProducto);
-        $Mensaje= $GestionProducto->AgregarProducto();
-        echo $Mensaje;
-    }
-    function BuscarProducto($conexion){
-
+        $mensaje=GestionProductos::AgregarProducto($conexion);
+        echo $mensaje;
     }
 

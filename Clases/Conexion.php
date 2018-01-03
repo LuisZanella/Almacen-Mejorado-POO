@@ -6,7 +6,6 @@
  * Time: 04:25 PM
  */
 
-namespace Conexion;
 class Conexion
 {
     public $conexion;
