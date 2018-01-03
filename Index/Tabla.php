@@ -1,5 +1,5 @@
 <?php
-include_once('conectar.php');
+$con=mysqli_connect('localhost', 'root', 'sqlserver', 'almacen');
 $respuesta = "";
 $TipoBusqueda=$_POST["TipoBusqueda"];
 switch ($TipoBusqueda){
