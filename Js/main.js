@@ -62,7 +62,7 @@ $(document).ready(function () {
                 var nombreproducto = $("#NombreProductoModal").val();
                 var ejecutar = validarnombre(nombreproducto);
                 if (ejecutar === true) {
-                    $.post("Tabla.php",{nombre: nombreproducto,TipoBusqueda:2},
+                    $.post("/Clases/Clases.php",{nombre: nombreproducto,TipoBusqueda:"dos",accion:"Tabla"},
                         function (informacion) {
                             if (informacion === false) {
                                 alert("No existe ese producto")
@@ -102,7 +102,7 @@ $(document).ready(function () {
             var cantidadproducto = $("#CantidadProductoModal").val();
             var nombreproducto = $("#NombreProductoModal").val();
             var ejecutar= validarmodificar(nombreproducto,cantidadproducto);
-                if(ejecutar===true){
+                if(ejecutar!=="Error"){
                 $.post("/Clases/Clases.php", {cantidad: cantidadproducto, idproducto: $("#idproducto").val(),nombre:nombreproducto,accion:"ModificarProducto"},
                     function () {
                             borrartexto();
@@ -140,7 +140,7 @@ $(document).ready(function () {
 );
 
 function cargartabla() {
-    $.post("Tabla.php",{TipoBusqueda:1},
+    $.post("/Clases/Clases.php",{TipoBusqueda:"uno", accion:"Tabla"},
         function (tabla) {
             $('#tabla').html(tabla);
         });
@@ -297,7 +297,7 @@ function aparecerspanparamodificar(nombreactual,cantidadactual) {
     $("#NombreProductoModal").val(cantidadactual);
 }
 
-function preguntaeliminar(id) {
+function preguntaeliminar(idproducto) {
     /*Tambien se puede utilizar para no usar librerias externas
 
     if(confirm("seguro?")){
@@ -306,7 +306,7 @@ function preguntaeliminar(id) {
     */
     alertify.confirm('¡ALERTA!', '¿Está seguro de eliminar este elemento?',
         function () {
-            eliminardatos(id)
+            eliminardatos(idproducto)
         },
         function () {
             alertify.error('Cancelado')
@@ -314,8 +314,8 @@ function preguntaeliminar(id) {
     )
 }
 
-function eliminardatos(id) {
-    $.post("/Clases/Clases.php", {idproducto: id,accion:"EliminarProducto"},
+function eliminardatos(idproducto) {
+    $.post("/Clases/Clases.php", {idproducto: idproducto,accion:"EliminarProducto"},
         function () {
             cargartabla();
             alertify.success('Eliminado');

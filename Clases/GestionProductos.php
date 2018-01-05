@@ -8,91 +8,104 @@
 
 class GestionProductos
 {
-    /*public $id;
-    private $con;
-    public $cantidadproducto;
-    public $cantidadregistrada;
-    public $cantidad;
-    public $suma;
+    public $Conexion;
+    public $Id;
+    public $CantidadProducto;
     public $NombreProducto;
-    public function __construct($_con)
+    public $TipoTabla;
+    public $consulta;
+    public $CantidadRegistrada;
+    public $Cantidad;
+    public function __construct()
     {
-        $this->con=$_con;
+        $_conexion=new Conexion();
+        $_conexion=$_conexion->conexion;
+        $this->Conexion=$_conexion;
+        $this->CantidadProducto=$_POST["cantidad"];
+        $this->Id=$_POST["idproducto"];
+        $this->NombreProducto=$_POST["nombre"];
+        $this->TipoTabla=$_POST["TipoBusqueda"];
+        $Cantidad=mysqli_fetch_assoc(mysqli_query($this->Conexion, "SELECT Cantidad FROM bodega WHERE IdProducto='$this->Id'"));
+        $this->CantidadRegistrada=$Cantidad['Cantidad'];
     }
-    */
-    public static function AgregarCantidadProducto($conexion)
+    public function AgregarCantidadProducto()
     {
-            $cantidadproducto=$_POST["cantidad"];
-            $id=$_POST["idproducto"];
+            $suma = $this->CantidadRegistrada + $this->CantidadProducto;
 
-            $cantidadregistrada = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT Cantidad FROM bodega WHERE IdProducto='$id'"));
-            $cantidad=$cantidadregistrada['Cantidad'];
-            $suma = $cantidad + $cantidadproducto;
-            mysqli_query($conexion, "UPDATE bodega Set Cantidad=('$suma') WHERE IdProducto='$id'");
+            mysqli_query($this->Conexion, "UPDATE bodega Set Cantidad=('$suma') WHERE IdProducto='$this->Id'");
     }
-    public static function EliminarCantidadProducto($conexion){
-        $cantidadproducto=$_POST["cantidad"];
-        $id=$_POST["idproducto"];
-        $cantidadregistrada = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT Cantidad FROM bodega WHERE IdProducto='$id'"));
-        $cantidad=$cantidadregistrada['Cantidad'];
-        $suma = $cantidad - $cantidadproducto ;
+    public function EliminarCantidadProducto(){
+             $suma = $this->CantidadRegistrada - $this->CantidadProducto ;
+
         if ($suma >= 0) {
-            mysqli_query($conexion, "UPDATE bodega Set Cantidad=('$suma') WHERE IdProducto='$id'");
-            return "si";
+            mysqli_query($this->Conexion, "UPDATE bodega Set Cantidad=('$suma') WHERE IdProducto='$this->Id'");
+            echo "si";
         } else {
-            return "no";
+            echo "no";
         }
     }
-    public static function EliminarProducto($conexion){
-        $id=$_POST["idproducto"];
-
-        $productos = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT * FROM bodega WHERE IdProducto='$id'"));
+    public function EliminarProducto(){
+        $productos = mysqli_fetch_assoc(mysqli_query($this->Conexion, "SELECT * FROM bodega WHERE IdProducto='$this->Id'"));
         if ($productos != 0) {
-            mysqli_query($conexion, "DELETE FROM bodega WHERE IdProducto='$id'");
+            mysqli_query($this->Conexion, "DELETE FROM bodega WHERE IdProducto='$this->Id'");
         }
 
     }
-    public static function AgregarProducto($conexion){
-        $cantidadproducto=$_POST["cantidad"];
-        $NombreProducto=$_POST["nombre"];
-
-        $productos = mysqli_fetch_assoc(mysqli_query($conexion, "SELECT NombreProducto FROM bodega WHERE NombreProducto='$NombreProducto'"));
+    public function AgregarProducto(){
+        $productos = mysqli_fetch_assoc(mysqli_query($this->Conexion, "SELECT NombreProducto FROM bodega WHERE NombreProducto='$this->NombreProducto'"));
         if ($productos == 0) {
-            mysqli_query($conexion, "INSERT INTO bodega (NombreProducto,Cantidad) VALUES ('$NombreProducto','$cantidadproducto')");
-            return "si";
+            mysqli_query($this->Conexion, "INSERT INTO bodega (NombreProducto,Cantidad) VALUES ('$this->NombreProducto','$this->CantidadProducto')");
+            echo "si";
         } else {
-            return "no";
+            echo "no";
         }
     }
 
-    public static function ModificarProducto($conexion)
+    public function ModificarProducto()
     {
-        $cantidadproducto=$_POST["cantidad"];
-        $NombreProducto=$_POST["nombre"];
-        $id=$_POST["idproducto"];
-
         switch (true) {
-            case ($NombreProducto !== "") && ($cantidadproducto !== ""):
-                mysqli_query($conexion, "UPDATE bodega Set Cantidad=('$cantidadproducto') WHERE IdProducto='$id'");
-                mysqli_query($conexion, "UPDATE bodega Set NombreProducto=('$NombreProducto') WHERE IdProducto='$id'");
-                /*$respuesta = "Cantidad y Nombre del Producto modificado";*/
+            case ($this->NombreProducto !== "") && ($this->CantidadProducto !== ""):
+                mysqli_query($this->Conexion, "UPDATE bodega Set Cantidad=('$this->CantidadProducto') WHERE IdProducto='$this->Id'");
+                mysqli_query($this->Conexion, "UPDATE bodega Set NombreProducto=('$this->NombreProducto') WHERE IdProducto='$this->Id'");
+                $respuesta = "Cantidad y Nombre del Producto modificado";
+                echo $respuesta;
                 break;
-            case ($NombreProducto !== ""):
-                mysqli_query($conexion, "UPDATE bodega Set NombreProducto=('$NombreProducto') WHERE IdProducto='$id'");
-                /*$respuesta = "Nombre del Producto modificado";*/
+            case ($this->NombreProducto !== ""):
+                mysqli_query($this->Conexion, "UPDATE bodega Set NombreProducto=('$this->NombreProducto') WHERE IdProducto='$this->Id'");
+                $respuesta = "Nombre del Producto modificado";
+                echo $respuesta;
                 break;
-            case ($cantidadproducto !== ""):
-                mysqli_query($conexion, "UPDATE bodega Set Cantidad=('$cantidadproducto') WHERE IdProducto='$id'");
-                /*$respuesta = "Cantidad modificada";*/
+            case ($this->CantidadProducto !== ""):
+                mysqli_query($this->Conexion, "UPDATE bodega Set Cantidad=('$this->CantidadProducto') WHERE IdProducto='$this->Id'");
+                $respuesta = "Cantidad modificada";
+                echo $respuesta;
                 break;
             default:
-                return false;
+                echo "Error";
                 break;
         }
     }
     public function Tabla(){
 
+        ob_clean();
+        ob_start();
+            $this->TipoDeBusqueda();
+            $devuelta=$this->consulta;
+        include ("C:\Users\Luis\PhpstormProjects\Almacen\Index\PruebaTabla.php");
     }
-
+    public function TipoDeBusqueda(){
+        switch ($this->TipoTabla){
+            case "uno":
+                $consulta = mysqli_query($this->Conexion, "SELECT * FROM bodega ORDER BY NombreProducto ASC");
+                $this->consulta=$consulta;
+                break;
+            case "dos":
+                $consulta = mysqli_query($this->Conexion, "SELECT * FROM bodega WHERE NombreProducto LIKE '%$this->NombreProducto%'");
+                $this->consulta=$consulta;
+                break;
+            default:
+                return false;
+        }
+    }
 
 }
